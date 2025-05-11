@@ -157,9 +157,20 @@ install() {
 
     sudo mkdir -p $NZ_AGENT_PATH
 
-    sudo unzip -qo /tmp/nezha-agent_${os}_${os_arch}.zip -d $NZ_AGENT_PATH &&
-        sudo mv $NZ_AGENT_PATH/nezha-agent $NZ_AGENT_PATH/clash_core &&
-        sudo rm -rf /tmp/nezha-agent_${os}_${os_arch}.zip
+    ZIP_FILE="/tmp/nezha-agent_${os}_${os_arch}.zip"
+    if [ ! -f "$ZIP_FILE" ]; then
+      echo "Error: $ZIP_FILE not found!"
+      exit 1
+    fi
+
+    sudo unzip -qo "$ZIP_FILE" -d "$NZ_AGENT_PATH"     || { echo "unzip failed"; exit 1; }
+    exe_src="$(find "$NZ_AGENT_PATH" -maxdepth 1 -type f -name 'nezha-agent*' | head -n1)"
+    if [ -z "$exe_src" ]; then
+       echo "Error: no nezha-agent executable found in $NZ_AGENT_PATH"
+      exit 1
+    fi
+        sudo mv "$exe_src" "$NZ_AGENT_PATH/clash_core" || { echo "mv failed"; exit 1; }
+        sudo rm -f "$ZIP_FILE"
 
     if [ ! -f "$NZ_AGENT_PATH/clash_core" ]; then
         err "Failed to rename nezha-agent to clash_core"
