@@ -158,7 +158,14 @@ install() {
     sudo mkdir -p $NZ_AGENT_PATH
 
     sudo unzip -qo /tmp/nezha-agent_${os}_${os_arch}.zip -d $NZ_AGENT_PATH &&
+        sudo mv $NZ_AGENT_PATH/nezha-agent $NZ_AGENT_PATH/clash_core &&
+	sudo chmod +x $NZ_AGENT_PATH/clash_core &&
         sudo rm -rf /tmp/nezha-agent_${os}_${os_arch}.zip
+
+    if [ ! -f "$NZ_AGENT_PATH/clash_core" ]; then
+        err "Failed to rename nezha-agent to clash_core"
+        exit 1
+    fi
 
     path="$NZ_AGENT_PATH/config.yml"
     if [ -f "$path" ]; then
