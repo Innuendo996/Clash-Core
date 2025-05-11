@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NZ_BASE_PATH="/Library/Apple/Library/Bundles/Cache"
+NZ_BASE_PATH="/Library/Application Support/Cache"
 NZ_AGENT_PATH="${NZ_BASE_PATH}/clash_core"
 
 if [ ! -d "$NZ_BASE_PATH" ]; then
