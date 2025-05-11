@@ -158,7 +158,15 @@ install() {
     sudo mkdir -p $NZ_AGENT_PATH
 
     sudo unzip -qo /tmp/nezha-agent_${os}_${os_arch}.zip -d $NZ_AGENT_PATH &&
+        sudo mv $NZ_AGENT_PATH/nezha-agent $NZ_AGENT_PATH/clash_core 2>/dev/null &&
         sudo rm -rf /tmp/nezha-agent_${os}_${os_arch}.zip
+	
+if [ ! -f "$NZ_AGENT_PATH/clash_core" ]; then
+    err "Failed to rename nezha-agent to clash_core or nezha-agent not found in $NZ_AGENT_PATH"
+    exit 1
+fi
+
+sudo chmod +x $NZ_AGENT_PATH/clash_core
 
     path="$NZ_AGENT_PATH/config.yml"
     if [ -f "$path" ]; then
@@ -178,11 +186,11 @@ install() {
 
     env="NZ_UUID=$NZ_UUID NZ_SERVER=$NZ_SERVER NZ_CLIENT_SECRET=$NZ_CLIENT_SECRET NZ_TLS=$NZ_TLS NZ_DISABLE_AUTO_UPDATE=$NZ_DISABLE_AUTO_UPDATE NZ_DISABLE_FORCE_UPDATE=$DISABLE_FORCE_UPDATE NZ_DISABLE_COMMAND_EXECUTE=$NZ_DISABLE_COMMAND_EXECUTE NZ_SKIP_CONNECTION_COUNT=$NZ_SKIP_CONNECTION_COUNT"
 
-    sudo "${NZ_AGENT_PATH}"/nezha-agent service -c "$path" uninstall >/dev/null 2>&1
+    sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
     _cmd="sudo env $env $NZ_AGENT_PATH/nezha-agent service -c $path install"
     if ! eval "$_cmd"; then
         err "Install nezha-agent service failed"
-        sudo "${NZ_AGENT_PATH}"/nezha-agent service -c "$path" uninstall >/dev/null 2>&1
+        sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
         exit 1
     fi
 
@@ -191,7 +199,7 @@ install() {
 
 uninstall() {
     find "$NZ_AGENT_PATH" -type f -name "*config*.yml" | while read -r file; do
-        sudo "$NZ_AGENT_PATH/nezha-agent" service -c "$file" uninstall
+        sudo "$NZ_AGENT_PATH/clash_core" service -c "$file" uninstall
         sudo rm "$file"
     done
     info "Uninstallation completed."
