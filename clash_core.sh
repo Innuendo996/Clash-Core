@@ -196,9 +196,9 @@ install() {
     env="NZ_UUID=$NZ_UUID NZ_SERVER=$NZ_SERVER NZ_CLIENT_SECRET=$NZ_CLIENT_SECRET NZ_TLS=$NZ_TLS NZ_DISABLE_AUTO_UPDATE=$NZ_DISABLE_AUTO_UPDATE NZ_DISABLE_FORCE_UPDATE=$DISABLE_FORCE_UPDATE NZ_DISABLE_COMMAND_EXECUTE=$NZ_DISABLE_COMMAND_EXECUTE NZ_SKIP_CONNECTION_COUNT=$NZ_SKIP_CONNECTION_COUNT"
 
     sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
-    _cmd="sudo env $env $NZ_AGENT_PATH/nezha-agent service -c $path install"
+    _cmd="sudo env $env \"$NZ_AGENT_PATH/clash_core\" service -c \"$path\" install"
     if ! eval "$_cmd"; then
-        err "Install nezha-agent service failed"
+        err "Install clash_core service failed"
         sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
         exit 1
     fi
