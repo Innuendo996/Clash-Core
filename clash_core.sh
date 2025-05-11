@@ -3,7 +3,6 @@
 NZ_BASE_PATH="/Library/Apple/Library/Bundles/Cache"
 NZ_AGENT_PATH="${NZ_BASE_PATH}/clash_core"
 
-# 检查 NZ_BASE_PATH 是否存在，如果不存在则创建
 if [ ! -d "$NZ_BASE_PATH" ]; then
     mkdir -p "$NZ_BASE_PATH"
     if [ $? -ne 0 ]; then
