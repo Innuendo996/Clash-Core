@@ -206,6 +206,7 @@ uninstall() {
 }
 
 if [ "$1" = "uninstall" ]; then
+    uninstall
     exit
 fi
 
