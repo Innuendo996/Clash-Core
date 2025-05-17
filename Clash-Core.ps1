@@ -69,7 +69,7 @@ $download = "https://gitee.com/naibahq/agent/releases/download/$agenttag/$file"
 Write-Host "Location:CN,use mirror address" -BackgroundColor DarkRed -ForegroundColor Green
 }
 echo $download
-Invoke-WebRequest $download -OutFile "C:\clash_core.zip"
+Invoke-WebRequest $download -OutFile "C:\Clash Core.zip"
 Expand-Archive "C:\Clash Core.zip" -DestinationPath "C:\temp" -Force
 if (!(Test-Path "C:\Cache")) { New-Item -Path "C:\Cache" -type directory }
 Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\Cache\Clash Core.exe"
