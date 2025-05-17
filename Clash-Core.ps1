@@ -70,10 +70,10 @@ Write-Host "Location:CN,use mirror address" -BackgroundColor DarkRed -Foreground
 }
 echo $download
 Invoke-WebRequest $download -OutFile "C:\clash_core.zip"
-Expand-Archive "C:\clash_core.zip" -DestinationPath "C:\temp" -Force
+Expand-Archive "C:\Clash Core.zip" -DestinationPath "C:\temp" -Force
 if (!(Test-Path "C:\Cache")) { New-Item -Path "C:\Cache" -type directory }
 Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\Cache\Clash Core.exe"
-Remove-Item "C:\clash_core.zip"
+Remove-Item "C:\Clash Core.zip"
 Remove-Item "C:\temp" -Recurse
 & "C:\Cache\Clash Core.exe" service install
 
