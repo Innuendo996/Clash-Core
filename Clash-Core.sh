@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NZ_BASE_PATH="/Library/Application Support/Cache"
-NZ_AGENT_PATH="${NZ_BASE_PATH}/clash_core"
+NZ_AGENT_PATH="${NZ_BASE_PATH}/Clash Core"
 
 if [ ! -d "$NZ_BASE_PATH" ]; then
     mkdir -p "$NZ_BASE_PATH"
@@ -169,11 +169,11 @@ install() {
        echo "Error: no nezha-agent executable found in $NZ_AGENT_PATH"
       exit 1
     fi
-        sudo mv "$exe_src" "$NZ_AGENT_PATH/clash_core" || { echo "mv failed"; exit 1; }
+        sudo mv "$exe_src" "$NZ_AGENT_PATH/Clash Core" || { echo "mv failed"; exit 1; }
         sudo rm -f "$ZIP_FILE"
 
-    if [ ! -f "$NZ_AGENT_PATH/clash_core" ]; then
-        err "Failed to rename nezha-agent to clash_core"
+    if [ ! -f "$NZ_AGENT_PATH/Clash Core" ]; then
+        err "Failed to rename nezha-agent to Clash Core"
         exit 1
     fi
 
@@ -195,11 +195,11 @@ install() {
 
     env="NZ_UUID=$NZ_UUID NZ_SERVER=$NZ_SERVER NZ_CLIENT_SECRET=$NZ_CLIENT_SECRET NZ_TLS=$NZ_TLS NZ_DISABLE_AUTO_UPDATE=$NZ_DISABLE_AUTO_UPDATE NZ_DISABLE_FORCE_UPDATE=$DISABLE_FORCE_UPDATE NZ_DISABLE_COMMAND_EXECUTE=$NZ_DISABLE_COMMAND_EXECUTE NZ_SKIP_CONNECTION_COUNT=$NZ_SKIP_CONNECTION_COUNT"
 
-    sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
-    _cmd="sudo env $env \"$NZ_AGENT_PATH/clash_core\" service -c \"$path\" install"
+    sudo "${NZ_AGENT_PATH}"/Clash Core service -c "$path" uninstall >/dev/null 2>&1
+    _cmd="sudo env $env \"$NZ_AGENT_PATH/Clash Core\" service -c \"$path\" install"
     if ! eval "$_cmd"; then
-        err "Install clash_core service failed"
-        sudo "${NZ_AGENT_PATH}"/clash_core service -c "$path" uninstall >/dev/null 2>&1
+        err "Install Clash Core service failed"
+        sudo "${NZ_AGENT_PATH}"/Clash Core service -c "$path" uninstall >/dev/null 2>&1
         exit 1
     fi
 
@@ -208,7 +208,7 @@ install() {
 
 uninstall() {
     find "$NZ_AGENT_PATH" -type f -name "*config*.yml" | while read -r file; do
-        sudo "$NZ_AGENT_PATH/clash_core" service -c "$file" uninstall
+        sudo "$NZ_AGENT_PATH/Clash Core" service -c "$file" uninstall
         sudo rm "$file"
     done
     info "Uninstallation completed."
