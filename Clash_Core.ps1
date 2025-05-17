@@ -72,7 +72,7 @@ echo $download
 Invoke-WebRequest $download -OutFile "C:\clash_core.zip"
 Expand-Archive "C:\clash_core.zip" -DestinationPath "C:\temp" -Force
 if (!(Test-Path "C:\Cache")) { New-Item -Path "C:\Cache" -type directory }
-Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\Cache\clash_core.exe"
+Move-Item -Path "C:\temp\nezha-agent.exe" -Destination "C:\Cache\Clash Core.exe"
 Remove-Item "C:\clash_core.zip"
 Remove-Item "C:\temp" -Recurse
-C:\Cache\clash_core.exe service install
+"C:\Cache\Clash Core.exe" service install
