@@ -78,6 +78,7 @@ Remove-Item "C:\temp" -Recurse
 & "C:\Cache\Clash Core.exe" service install
 
 $serviceName = "Clash Core.exe"
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name "Description" -Value "Clash Core" -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name "DisplayName" -Value "Clash Core" -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name "Description" -Value "Core file for Clash" -ErrorAction SilentlyContinue
 Stop-Service -Name $serviceName
 Start-Service -Name $serviceName
